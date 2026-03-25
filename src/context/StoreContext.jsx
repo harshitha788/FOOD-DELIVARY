@@ -15,7 +15,16 @@ const addToCart = (itemId)=>{
   }
 }
 const removeFromCart = (itemId)=>{
-    setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
+    setCartItems((prev)=>{
+      if (!prev[itemId]) return prev
+      const nextCount = prev[itemId] - 1
+      if (nextCount <= 0) {
+        const next = { ...prev }
+        delete next[itemId]
+        return next
+      }
+      return { ...prev, [itemId]: nextCount }
+    })
   }
     useEffect(()=>{
         console.log(cartItems);
