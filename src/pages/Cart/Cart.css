@@ -117,17 +117,13 @@
     border-radius: 6px;
 }
 
-@media (max-width: 768px) {
-    .cart-items-title,
-    .cart-items-item {
-        grid-template-columns: 1fr 1.5fr 1fr 1fr;
+@media (max-width: 750px) 
+{
+    .cart-bottom{
+        flex-direction:column-reverse;
     }
-    .cart-items-title p:nth-child(5), .cart-items-item p:nth-child(5),
-    .cart-items-title p:nth-child(6), .cart-items-item p:nth-child(6) {
-        display: none;
-    }
-    .cart-dutton {
-        flex-direction: column;
+    .cart-promocode{
+        justify-content: start;
     }
 }
 

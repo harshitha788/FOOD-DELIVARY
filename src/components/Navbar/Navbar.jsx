@@ -5,8 +5,14 @@ import { Link } from 'react-router-dom'
 
 const Navbar = ({setShowLogin}) => {
 
+    const [menu, setMenu] = useState("menu");
+    const [menuOpen, setMenuOpen] = useState(false);
 
-    const[menu,setMenu]=useState("menu");
+    const toggleMenu = () => setMenuOpen(prev => !prev);
+    const handleMenuClick = (section) => {
+        setMenu(section);
+        setMenuOpen(false);
+    };
 
     const handleCartClick = (event) => {
         event.preventDefault();
@@ -14,18 +20,24 @@ const Navbar = ({setShowLogin}) => {
         if (cart) {
             cart.scrollIntoView({behavior: 'smooth'});
             setMenu('cart');
+            setMenuOpen(false);
         }
     }
 
   return (
     <div className='navbar'>
       <Link to='/'><img src={assets.logo} alt="" className="logo" /></Link>
-      <ul className="navbar-menu">
-        <li><a href='#' onClick={()=>setMenu("home")} className={menu==="home"?"active":""}>Home</a></li>
-        <li><a href='#explore-menu' onClick={()=>setMenu("menu")} className={menu==="menu"?"active":""}>menu</a></li>
-        <li><a href='#app-download' onClick={()=>setMenu("mobile-app")} className={menu==="mobile-app"?"active":""}>Mobile App</a></li>
-        <li><a href='#footer' onClick={()=>setMenu("contact-us")} className={menu==="contact-us"?"active":""}>Contact us</a></li>
-        </ul>
+      <button className="navbar-hamburger" onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={menuOpen}>
+        <span />
+        <span />
+        <span />
+      </button>
+      <ul className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
+        <li><a href='#' onClick={()=>handleMenuClick("home")} className={menu==="home"?"active":""}>Home</a></li>
+        <li><a href='#explore-menu' onClick={()=>handleMenuClick("menu")} className={menu==="menu"?"active":""}>menu</a></li>
+        <li><a href='#app-download' onClick={()=>handleMenuClick("mobile-app")} className={menu==="mobile-app"?"active":""}>Mobile App</a></li>
+        <li><a href='#footer' onClick={()=>handleMenuClick("contact-us")} className={menu==="contact-us"?"active":""}>Contact us</a></li>
+      </ul>
       <div className="navbar-right">
           <img src={assets.search_icon} alt="" />
           <div className="navbar-search-icon">
